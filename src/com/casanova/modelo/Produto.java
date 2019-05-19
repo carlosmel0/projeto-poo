@@ -1,3 +1,4 @@
+package com.casanova.modelo;
 
 public class Produto {
 	private String nome;

@@ -1,4 +1,4 @@
-
+package com.casanova.modelo;
 public class Login {
 	protected Pessoa pessoa;
 	protected String nomeUsuario;
@@ -36,6 +36,7 @@ public class Login {
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
+	
 	
 	
 	

@@ -1,12 +1,17 @@
+package com.casanova.modelo;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Date;
+import java.text.SimpleDateFormat;
 
 public class Venda {
 	private List<Produto> produtos;
 	private double total;
+	private Date data;
 	
 	
 	public Venda() {
+		this.data = new Date();
 		this.produtos = new ArrayList<>();
 		this.total = 0.0;
 	
@@ -25,11 +30,18 @@ public class Venda {
 
 	public double getTotal() {
 		return total;
+		
 	}
 
 
 	public void setTotal(double total) {
 		this.total = total;
+	}
+	
+	public String getData() {
+		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+		return formato.format(this.data);
+		
 	}
 
 
