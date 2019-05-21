@@ -1,50 +1,57 @@
 package com.casanova.dados;
 
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.Properties;
+import java.sql.Statement;
+
 
 public class DB {
-	private static Connection conn = null;
+	private static Connection conn;
+	private final String url = "jdbc:sqlite:./bd/banco.db";
+	private static DB singleton = null;
 	
-	public static Connection getConnection() {
-		if(conn == null) {
-			try{
-				Properties props = loadProperties();
-				String url = props.getProperty("dburl");
-				conn = DriverManager.getConnection(url, props);
-			}
-			catch(SQLException e) {
-				throw new DbException(e.getMessage());
-			}
-		}
-		return conn;
+	public DB() throws SQLException {
+		this.connect();
+		this.criarBanco();
+		
 	}
 	
-	public static void closeConnection() {
-		if(conn != null) {
-			try {
-				conn.close();
-			}
-			catch(SQLException e) {
-				throw new DbException(e.getMessage());
-			}
-		}
+	private void criarBanco() throws SQLException {
+		String sqlFuncionario=" CREATE TABLE IF NOT EXISTS Funcionario (" +
+								"id integer PRIMARY KEY AUTOINCREMENT,"+
+								"nome TEXT, cpf TEXT, cargo INTEGER, usuario TEXT, senha TEXT" +
+								");";
+		Statement stmt = conn.createStatement();
+		stmt.execute(sqlFuncionario);
+		String sqlProduto = "CREATE TABLE IF NOT EXISTS Produto (" +
+							"id integer PRIMARY KEY AUTOINCREMENT," +
+							"nome TEXT, codigo INTEGER, precoCompra REAL, precoVenda REAL, quantidade INTEGER"+
+							");";
+		stmt.execute(sqlProduto);
+		
+							
+	
 	}
 	
-	private static Properties loadProperties() {
-		try(FileInputStream fs = new FileInputStream("db.properties")){
-			Properties props = new Properties();
-			props.load(fs);
-			return props;
-			
+	public static DB getSingleton() throws SQLException {
+		if (singleton == null) {
+			singleton = new DB();
 		}
-		catch(IOException e) {
-			throw new DbException(e.getMessage());
-		}
+		return singleton;
 	}
+	
+	
+	private Connection connect() throws SQLException {        
+        DB.conn = DriverManager.getConnection(url);
+        return conn;
+    }
+	
+	public Connection getConnection() {
+		return DB.conn;
+	}
+	
+	
+	
 
 }
