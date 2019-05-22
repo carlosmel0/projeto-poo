@@ -13,24 +13,11 @@ public class CrudProduto {
 	}
 	
 	
-	public void cadastrarProduto(Produto produto) {
+	public void cadastrarProduto(Produto produto) throws NomeVazioException {
 		if (produto.getNome() == null || produto.getNome().isEmpty()) {
 			throw new NomeVazioException();
 		}
-		
-		if (curso.getNome() == null || curso.getNome().isEmpty()) {
-			throw new ExceptionNomeCursoVazio();
-		}
-		
-		if (curso.getCoordenador() == null) {
-			throw new ExceptionCoordenadorNulo();
-		}
-		
-		repCurso.inserirCurso(curso);
-		
-		
-		
-		
+		repProduto.inserirProduto(produto);;
 		
 	}
 

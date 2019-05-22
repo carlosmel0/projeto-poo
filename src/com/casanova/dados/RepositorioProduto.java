@@ -14,7 +14,7 @@ public class RepositorioProduto implements IRepositorioProduto {
 
 		try {
 			Connection conn = DB.getSingleton().getConnection();
-			String sql = "INSERT INTO Produto (nome,codigo, precoCompra, precoVenda, quantidade) VALUES(?,?,?,?)";
+			String sql = "INSERT INTO Produto (nome, codigo, precoCompra, precoVenda, quantidade) VALUES(?,?,?,?,?)";
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, produto.getNome());
 			pstmt.setInt(2, produto.getCodigo());

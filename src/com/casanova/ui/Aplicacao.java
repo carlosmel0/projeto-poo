@@ -1,40 +1,68 @@
 package com.casanova.ui;
+import java.util.Scanner;
 
-import com.casanova.dados.*;
-import com.casanova.negocio.modelo.*;
+import com.casanova.negocio.Fachada;
+import com.casanova.negocio.NomeVazioException;
+import com.casanova.negocio.modelo.Funcionario;
+import com.casanova.negocio.modelo.Produto;
 
 public class Aplicacao {
 
+	private static Scanner sc;
+
 	public static void main(String[] args) {
+		boolean aux = true;
+		sc = new Scanner(System.in);
+		
+		while(aux) {
+			System.out.println("Digite um numero de acordo com a função: ");
+			System.out.println("1 - Cadastrar produto: \n 2 - Cadastrar funcionario: ");
+			
+			
+			int a = sc.nextInt();
+			switch(a) {
+			case 1:
+				try {
+				System.out.println("Digite o nome do produto: ");
+				String nome = sc.next();
+				System.out.println("Digite o código do produto: ");
+				int codigo = sc.nextInt();
+				System.out.println("Digite o valor de compra do produto: ");
+				double precoCompra = sc.nextDouble();
+				System.out.println("Digite o valor de venda do produto: ");
+				double precoVenda = sc.nextDouble();
+				System.out.println("Digite a quantidade de produtos: ");
+				int quantidade = sc.nextInt();
+				Produto produto = new Produto(nome,codigo,precoCompra, precoVenda, quantidade);
+				Fachada.getSingleton().cadastrarProduto(produto);
+				
+	
+				}catch(NomeVazioException e){
+					System.out.println(e.getMessage());
+				}catch(NumberFormatException e) {
+					System.out.println(e.getMessage());
+				}
+			case 2:
+				System.out.println("Digite o nome do funcionario: ");
+				String nome = sc.next();
+				System.out.println("Digite o cpf do funcionario(sem pontos e traços:");
+				String cpf = sc.next();
+				System.out.println("Digite digite o cargo: 01 se gerente ou 02 se vendedor: ");
+				int cargo = sc.nextInt();
+				System.out.println("Digite um nome de usuario: ");
+				String usuario = sc.next();
+				System.out.println("Digite uma senha: ");
+				String senha = sc.next();
+				Funcionario funcionario = new Funcionario(nome, cpf, cargo, usuario, senha);
+				
+				
+			}
+			
+			
+		}
 		
 		
 		
-		
-		Produto prod01 = new Produto("Cimento Poti", 55162, 15.80, 25.81,15);
-		//CadastroProduto cad = new CadastroProduto();
-		//cad.cadastrarProduto(prod01);
-		//Produto prod02 = new Produto("Cola", 5581, 10.00, 15.90, 10);
-		Cliente cliente = new Cliente("Jose Carlos", "15464859816");
-		//Funcionario funcionario = new Funcionario("Darllene", "111111111", 01, "darlen", "12345");
-		
-		VendaPrazo vend1 = new VendaPrazo(cliente);
-		vend1.adicionaProduto(prod01, 5);
-		//vend1.adicionaProduto(prod02, 5);
-		//cliente.adicionaCompra(vend1);
-		//System.out.println(vend1.getTotal());
-		//System.out.println(prod01.getQuantidade());
-		//System.out.println(prod02.getQuantidade());
-		//System.out.println(vend1.getData());
-		
-		
-		//System.out.println(cliente.getCompras());
-		
-		//Connection conn = (Connection) DB.getConnection();	
-		
-		RepositorioFuncionario repfuncion = new RepositorioFuncionario();
-		repfuncion.mostrarFuncionario();
-		//RepositorioProduto repProdu = new RepositorioProduto();
-		//repProdu.inserirProduto(prod01);
 		
 
 	}
